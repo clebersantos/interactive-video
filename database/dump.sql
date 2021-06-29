@@ -1,5 +1,5 @@
-create database interactive
-    with owner root;
+-- create database interactive
+--     with owner root;
 
 create table usuarios
 (
@@ -78,7 +78,7 @@ create table videos
         constraint videos_pk
             primary key,
     titulo_video varchar(100) not null,
-    nome_video varchar(100) not null,
+    nome_video varchar(100) null,
     ativo boolean default true not null,
     data_cadastro timestamp default CURRENT_TIMESTAMP not null,
     data_atualizacao timestamp
@@ -193,12 +193,13 @@ create unique index cursovideos_idvideos_idcursos_uindex
 
 create table videos_perguntas
 (
-    id_videos integer
+    id_videos integer not null
         constraint videosperguntas_videos_idvideos_fk
             references videos,
-    id_perguntas integer
+    id_perguntas integer not null
         constraint videosperguntas_perguntas_idperguntas_fk
-            references perguntas
+            references perguntas,
+    aparecer_em time not null
 );
 
 alter table videos_perguntas owner to root;
